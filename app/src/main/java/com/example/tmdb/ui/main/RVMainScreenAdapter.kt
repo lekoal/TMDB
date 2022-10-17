@@ -37,7 +37,6 @@ class RVMainScreenAdapter : RecyclerView.Adapter<RVMainScreenAdapter.MainScreenV
     inner class MainScreenViewHolder(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
-        private val imageBaseUrl = "https://www.themoviedb.org/t/p/original"
         private val image: AppCompatImageView =
             itemView.findViewById(R.id.rv_item_film_list_image)
         private val name: AppCompatTextView =
@@ -46,16 +45,17 @@ class RVMainScreenAdapter : RecyclerView.Adapter<RVMainScreenAdapter.MainScreenV
             itemView.findViewById(R.id.rv_item_film_list_date)
 
         fun bind(data: FilmListDTO.Result) {
-            data.apply {
-                name.text = title
-                date.text = releaseDate
-                Glide.with(itemView)
-                    .load("https://asteriya-salon.ru/wp-content/uploads/4/1/d/41dfb06201263485405bd33b6c2f69d2.jpeg")
-                    .error(R.drawable.ic_baseline_terrain_24)
-                    .into(image)
-                itemView.setOnClickListener {
+            val imageUrl = "https://www.themoviedb.org/t/p/original${data.posterPath}"
+            Glide.with(itemView)
+                .load(imageUrl)
+                .centerCrop()
+                .error(R.drawable.ic_baseline_terrain_24)
+                .into(image)
+            name.text = data.title
+            date.text = data.releaseDate
 
-                }
+            itemView.setOnClickListener {
+
             }
         }
     }
