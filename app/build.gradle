@@ -17,7 +17,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey.properties").newDataInputStream())
+        def tmdb_api_key = properties.getProperty("tmdb_api_key", "")
+        it.buildConfigField "String", "tmdb_api_key", tmdb_api_key
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -59,4 +64,19 @@ dependencies {
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:2.5.2"
     implementation "androidx.navigation:navigation-ui-ktx:2.5.2"
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.9.0'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2'
+
+    //Coil
+    implementation 'io.coil-kt:coil:2.2.2'
+
+    //Koin
+    implementation "io.insert-koin:koin-android:3.2.0"
+    implementation "io.insert-koin:koin-core:3.2.0"
 }

@@ -7,5 +7,4 @@ class MainScreenFragment :
     ViewBindingFragment<FragmentMainScreenBinding>(FragmentMainScreenBinding::inflate) {
 
 
-
 }
