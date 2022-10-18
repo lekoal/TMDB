@@ -35,7 +35,7 @@ class MainScreenPagerAdapter :
     }
 
     override fun onBindViewHolder(holder: FilmListViewHolder, position: Int) {
-        val film = getItem(position)
+        val film = getItem(position) //сделать глобальным + https://antonioleiva.com/recyclerview-adapter-kotlin/
         holder.view.rvItemFilmListName.text = film?.originalTitle.toString()
         holder.view.rvItemFilmListDate.text = film?.releaseDate.toString()
         Glide.with(holder.view.root)
