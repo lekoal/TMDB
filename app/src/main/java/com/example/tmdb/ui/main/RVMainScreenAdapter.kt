@@ -6,18 +6,22 @@ import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.tmdb.R
 import com.example.tmdb.data.filmList.FilmListDTO
 
-class RVMainScreenAdapter : RecyclerView.Adapter<RVMainScreenAdapter.MainScreenViewHolder>() {
+class RVMainScreenAdapter() :
+    RecyclerView.Adapter<RVMainScreenAdapter.MainScreenViewHolder>() {
 
     private val data = mutableListOf<FilmListDTO.Result>()
 
-    fun setData(result: FilmListDTO) {
-        data.clear()
+    fun setData(result: FilmListDTO, pageId: Int) {
+        if (pageId == 1) {
+            data.clear()
+        }
         data.addAll(result.results)
-        notifyDataSetChanged()
+        if (pageId == 1) {
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainScreenViewHolder {
@@ -46,11 +50,11 @@ class RVMainScreenAdapter : RecyclerView.Adapter<RVMainScreenAdapter.MainScreenV
 
         fun bind(data: FilmListDTO.Result) {
             val imageUrl = "https://www.themoviedb.org/t/p/original${data.posterPath}"
-            Glide.with(itemView)
-                .load(imageUrl)
-                .centerCrop()
-                .error(R.drawable.ic_baseline_terrain_24)
-                .into(image)
+//            Glide.with(itemView)
+//                .load(imageUrl)
+//                .centerCrop()
+//                .error(R.drawable.ic_baseline_terrain_24)
+//                .into(image)
             name.text = data.title
             date.text = data.releaseDate
 

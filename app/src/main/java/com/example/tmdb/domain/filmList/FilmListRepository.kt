@@ -4,5 +4,5 @@ import com.example.tmdb.data.filmList.FilmListDTO
 import retrofit2.Response
 
 interface FilmListRepository {
-    suspend fun getFilms(): Response<FilmListDTO>
+    suspend fun getFilms(page: Int): Response<FilmListDTO>
 }

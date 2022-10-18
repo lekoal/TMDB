@@ -3,5 +3,5 @@ package com.example.tmdb.data.filmList
 import com.example.tmdb.domain.filmList.FilmListApi
 
 class ApiFilmListHelper(private val filmListApi: FilmListApi) {
-    suspend fun getFilms() = filmListApi.getFilms()
+    suspend fun getFilms(page: Int) = filmListApi.getFilms(page)
 }

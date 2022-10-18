@@ -1,5 +1,6 @@
 package com.example.tmdb.ui.main
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import kotlinx.coroutines.*
 class MainScreenViewModel(
     private val filmListRepository: FilmListRepository,
     private val filmDetailsRepository: FilmDetailsRepository
-): ViewModel() {
+) : ViewModel() {
     private val coroutineScope = CoroutineScope(Dispatchers.IO)
 
     private val _loading = MutableLiveData<Boolean>()
@@ -20,20 +21,22 @@ class MainScreenViewModel(
     private val _error = MutableLiveData<Boolean>()
     val error: LiveData<Boolean> = _error
     private val _errorMessage = MutableLiveData<String>()
-    private val errorMessage: LiveData<String> = _errorMessage
+    val errorMessage: LiveData<String> = _errorMessage
 
     private val _filmList = MutableLiveData<FilmListDTO>()
     val filmList: LiveData<FilmListDTO> = _filmList
+
     private val _filmDetails = MutableLiveData<FilmDetailsDTO>()
     val filmDetails: LiveData<FilmDetailsDTO> = _filmDetails
 
     private var filmListJob: Job? = null
     private var filmDetailsJob: Job? = null
 
-    fun getFilms() {
+    fun getFilms(pageId: Int) {
+        Log.i("MY", "get films, page: $pageId")
         filmListJob = coroutineScope.launch {
             _loading.postValue(true)
-            val response = filmListRepository.getFilms()
+            val response = filmListRepository.getFilms(pageId)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
                     _filmList.postValue(response.body())
