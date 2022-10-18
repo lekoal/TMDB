@@ -46,6 +46,9 @@ class MainScreenPagerAdapter :
             .centerCrop()
             .error(com.example.tmdb.R.drawable.ic_baseline_terrain_24)
             .into(holder.view.rvItemFilmListImage)
+        val rate = (film?.voteAverage!! * 10).toInt()
+        holder.view.rateText.text = rate.toString()
+        holder.view.rateProgress.progress = rate
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {

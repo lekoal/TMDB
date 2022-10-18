@@ -3,4 +3,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="top_movies_title">Top movies</string>
+    <string name="percent_symbol">%</string>
 </resources>
