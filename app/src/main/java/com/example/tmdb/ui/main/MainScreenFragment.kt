@@ -1,13 +1,15 @@
 package com.example.tmdb.ui.main
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tmdb.databinding.FragmentMainScreenBinding
 import com.example.tmdb.utils.ViewBindingFragment
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.getKoin
 import org.koin.core.qualifier.named
 
@@ -22,15 +24,11 @@ class MainScreenFragment :
         scope.get(named("main_screen_view_model"))
     }
 
-    private val adapter: RVMainScreenAdapter by lazy {
+    private val adapter: MainScreenPagerAdapter by lazy {
         scope.get(named("main_screen_adapter"))
     }
 
     private lateinit var layoutManager: LinearLayoutManager
-    private var visibleItemCount = 0
-    private var pastVisibleItemCount = 0
-    private var totalItemCount = 0
-    private var pageId = 1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,43 +39,48 @@ class MainScreenFragment :
             false
         )
 
-        viewModel.getFilms(pageId)
         initRV()
-        setData()
         loadingCheck()
         errorCheck()
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+        lifecycleScope.launch {
+            viewModel.getFilmList().observe(viewLifecycleOwner) {
+                it?.let {
+                    adapter.submitData(lifecycle, it)
+                }
+            }
+        }
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading ||
+                loadState.append is LoadState.Loading
+            ) {
+                progressManager(true)
+            } else {
+                progressManager(false)
+                val errorState = when {
+                    loadState.append is LoadState.Error -> {
+                        loadState.append as LoadState.Error
+                    }
+                    loadState.prepend is LoadState.Error -> {
+                        loadState.prepend as LoadState.Error
+                    }
+                    loadState.refresh is LoadState.Error -> {
+                        loadState.refresh as LoadState.Error
+                    }
+                    else -> null
+                }
+                errorState?.let {
+                    Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun initRV() {
         binding.rvFilmList.layoutManager = layoutManager
         binding.rvFilmList.adapter = adapter
-
-        binding.rvFilmList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-
-                if (dx > 0) {
-                    visibleItemCount = layoutManager.childCount
-                    totalItemCount = layoutManager.itemCount
-                    pastVisibleItemCount = layoutManager.findFirstVisibleItemPosition()
-                    if ((visibleItemCount + pastVisibleItemCount) >= totalItemCount) {
-                        ++pageId
-                        viewModel.getFilms(pageId)
-                        setData()
-                    }
-                }
-            }
-        })
-    }
-
-    private fun setData() {
-        viewModel.filmList.observe(viewLifecycleOwner) { films ->
-            adapter.setData(films, pageId)
-            if (pageId > 1) {
-                binding.rvFilmList.post { adapter.notifyItemInserted(adapter.itemCount - 1) }
-            }
-        }
     }
 
     private fun progressManager(show: Boolean) {

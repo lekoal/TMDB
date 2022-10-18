@@ -1,8 +1,9 @@
 package com.example.tmdb.domain.filmList
 
+import androidx.lifecycle.LiveData
+import androidx.paging.PagingData
 import com.example.tmdb.data.filmList.FilmListDTO
-import retrofit2.Response
 
 interface FilmListRepository {
-    suspend fun getFilms(page: Int): Response<FilmListDTO>
+    fun getFilms(): LiveData<PagingData<FilmListDTO.Result>>
 }

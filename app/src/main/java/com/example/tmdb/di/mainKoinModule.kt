@@ -2,15 +2,14 @@ package com.example.tmdb.di
 
 import com.example.tmdb.data.filmDetails.ApiFilmDetailsHelper
 import com.example.tmdb.data.filmDetails.FilmDetailsRepositoryImpl
-import com.example.tmdb.data.filmList.ApiFilmListHelper
 import com.example.tmdb.data.filmList.FilmListRepositoryImpl
 import com.example.tmdb.domain.filmDetails.FilmDetailsApi
 import com.example.tmdb.domain.filmDetails.FilmDetailsRepository
 import com.example.tmdb.domain.filmList.FilmListApi
 import com.example.tmdb.domain.filmList.FilmListRepository
 import com.example.tmdb.ui.main.MainScreenFragment
+import com.example.tmdb.ui.main.MainScreenPagerAdapter
 import com.example.tmdb.ui.main.MainScreenViewModel
-import com.example.tmdb.ui.main.RVMainScreenAdapter
 import com.example.tmdb.utils.ApiUtils
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -35,10 +34,6 @@ val mainKoinModule = module {
         get<Retrofit>(named("film_details_retrofit")).create(FilmDetailsApi::class.java)
     }
 
-    single(named("api_film_list_helper")) {
-        ApiFilmListHelper(get(named("film_list_api")))
-    }
-
     single(named("api_film_details_helper")) {
         ApiFilmDetailsHelper(get(named("film_details_api")))
     }
@@ -60,7 +55,7 @@ val mainKoinModule = module {
     }
 
     single<FilmListRepository>(named("film_list_repository")) {
-        FilmListRepositoryImpl(get(named("api_film_list_helper")))
+        FilmListRepositoryImpl(get(named("film_list_api")))
     }
 
     single<FilmDetailsRepository>(named("film_details_repository")) {
@@ -75,7 +70,7 @@ val mainKoinModule = module {
             )
         }
         scoped(named("main_screen_adapter")) {
-            RVMainScreenAdapter()
+            MainScreenPagerAdapter()
         }
     }
 
