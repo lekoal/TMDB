@@ -5,8 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tmdb.databinding.FragmentMainScreenBinding
 import com.example.tmdb.utils.ViewBindingFragment
 import kotlinx.coroutines.launch
@@ -28,15 +27,14 @@ class MainScreenFragment :
         scope.get(named("main_screen_adapter"))
     }
 
-    private lateinit var layoutManager: LinearLayoutManager
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        layoutManager = LinearLayoutManager(
+        layoutManager = GridLayoutManager(
             requireContext(),
-            RecyclerView.HORIZONTAL,
-            false
+            2
         )
 
         initRV()

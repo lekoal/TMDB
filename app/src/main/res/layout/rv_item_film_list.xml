@@ -2,42 +2,42 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="220dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="10dp">
+    android:layout_margin="5dp">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/rv_item_film_list_image"
         android:layout_width="220dp"
         android:layout_height="330dp"
         android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:src="@drawable/example_image" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/rv_item_film_list_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="10dp"
         android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
         android:textStyle="bold"
-        tools:text="Dragon Knight"
+        app:layout_constraintBottom_toTopOf="@id/rv_item_film_list_date"
         app:layout_constraintTop_toBottomOf="@id/rv_item_film_list_image"
-        app:layout_constraintBottom_toTopOf="@id/rv_item_film_list_date"/>
+        tools:text="Dragon Knight" />
 
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rv_item_film_list_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/rv_item_film_list_date"
-        android:paddingHorizontal="10dp"
         android:layout_marginTop="5dp"
-        tools:text="Mar 21, 2022"
-        app:layout_constraintStart_toStartOf="parent"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/rv_item_film_list_name"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        tools:text="Mar 21, 2022" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
