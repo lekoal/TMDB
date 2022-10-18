@@ -2,10 +2,12 @@ package com.example.tmdb.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tmdb.R
 import com.example.tmdb.data.filmList.FilmListDTO
 import com.example.tmdb.databinding.RvItemFilmListBinding
 
@@ -17,7 +19,8 @@ class MainScreenPagerAdapter :
 
     class FilmListViewHolder(val view: RvItemFilmListBinding) :
         RecyclerView.ViewHolder(view.root) {
-
+        val limeColor = ContextCompat.getColor(view.root.context, R.color.lime_600)
+        val greenColor = ContextCompat.getColor(view.root.context, R.color.green_500)
     }
 
     object FilmListComparator: DiffUtil.ItemCallback<FilmListDTO.Result>() {
@@ -44,11 +47,16 @@ class MainScreenPagerAdapter :
         Glide.with(holder.view.root)
             .load("https://image.tmdb.org/t/p/w300"+ film?.posterPath.toString())
             .centerCrop()
-            .error(com.example.tmdb.R.drawable.ic_baseline_terrain_24)
+            .error(R.drawable.ic_baseline_terrain_24)
             .into(holder.view.rvItemFilmListImage)
         val rate = (film?.voteAverage!! * 10).toInt()
         holder.view.rateText.text = rate.toString()
         holder.view.rateProgress.progress = rate
+        if (rate < 50) {
+            holder.view.rateProgress.setIndicatorColor(holder.limeColor)
+        } else {
+            holder.view.rateProgress.setIndicatorColor(holder.greenColor)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmListViewHolder {
