@@ -17,13 +17,7 @@ class MainScreenPagerAdapter :
             MainScreenPagerAdapter.FilmListViewHolder
             >(FilmListComparator) {
 
-    class FilmListViewHolder(val view: RvItemFilmListBinding) :
-        RecyclerView.ViewHolder(view.root) {
-        val limeColor = ContextCompat.getColor(view.root.context, R.color.lime_600)
-        val greenColor = ContextCompat.getColor(view.root.context, R.color.green_500)
-    }
-
-    object FilmListComparator: DiffUtil.ItemCallback<FilmListDTO.Result>() {
+    object FilmListComparator : DiffUtil.ItemCallback<FilmListDTO.Result>() {
         override fun areItemsTheSame(
             oldItem: FilmListDTO.Result,
             newItem: FilmListDTO.Result
@@ -45,7 +39,7 @@ class MainScreenPagerAdapter :
         holder.view.rvItemFilmListName.text = film?.originalTitle.toString()
         holder.view.rvItemFilmListDate.text = film?.releaseDate.toString()
         Glide.with(holder.view.root)
-            .load("https://image.tmdb.org/t/p/w300"+ film?.posterPath.toString())
+            .load("https://image.tmdb.org/t/p/w300" + film?.posterPath.toString())
             .centerCrop()
             .error(R.drawable.ic_baseline_terrain_24)
             .into(holder.view.rvItemFilmListImage)
@@ -63,5 +57,13 @@ class MainScreenPagerAdapter :
         val inflater = LayoutInflater.from(parent.context)
         val binding = RvItemFilmListBinding.inflate(inflater, parent, false)
         return FilmListViewHolder(binding)
+    }
+
+    class FilmListViewHolder(
+        val view: RvItemFilmListBinding
+    ) :
+        RecyclerView.ViewHolder(view.root) {
+        val limeColor = ContextCompat.getColor(view.root.context, R.color.lime_600)
+        val greenColor = ContextCompat.getColor(view.root.context, R.color.green_500)
     }
 }

@@ -40,40 +40,9 @@ class MainScreenFragment :
         initRV()
         loadingCheck()
         errorCheck()
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
-        }
-        lifecycleScope.launch {
-            viewModel.getFilmList().observe(viewLifecycleOwner) {
-                it?.let {
-                    adapter.submitData(lifecycle, it)
-                }
-            }
-        }
-        adapter.addLoadStateListener { loadState ->
-            if (loadState.refresh is LoadState.Loading ||
-                loadState.append is LoadState.Loading
-            ) {
-                progressManager(true)
-            } else {
-                progressManager(false)
-                val errorState = when {
-                    loadState.append is LoadState.Error -> {
-                        loadState.append as LoadState.Error
-                    }
-                    loadState.prepend is LoadState.Error -> {
-                        loadState.prepend as LoadState.Error
-                    }
-                    loadState.refresh is LoadState.Error -> {
-                        loadState.refresh as LoadState.Error
-                    }
-                    else -> null
-                }
-                errorState?.let {
-                    Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+        submitData()
+        loadStateListener()
+        setOnItemClick()
     }
 
     private fun initRV() {
@@ -100,11 +69,44 @@ class MainScreenFragment :
         }
     }
 
+    private fun submitData() {
+        lifecycleScope.launch {
+            viewModel.getFilmList().observe(viewLifecycleOwner) {
+                it?.let {
+                    adapter.submitData(lifecycle, it)
+                }
+            }
+        }
+    }
+
     private fun errorCheck() {
-        viewModel.error.observe(viewLifecycleOwner) { error ->
-            if (error) {
-                viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
-                    Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            Toast.makeText(requireContext(), it, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun loadStateListener() {
+        adapter.addLoadStateListener { loadState ->
+            if (loadState.refresh is LoadState.Loading ||
+                loadState.append is LoadState.Loading
+            ) {
+                progressManager(true)
+            } else {
+                progressManager(false)
+                val errorState = when {
+                    loadState.append is LoadState.Error -> {
+                        loadState.append as LoadState.Error
+                    }
+                    loadState.prepend is LoadState.Error -> {
+                        loadState.prepend as LoadState.Error
+                    }
+                    loadState.refresh is LoadState.Error -> {
+                        loadState.refresh as LoadState.Error
+                    }
+                    else -> null
+                }
+                errorState?.let {
+                    Toast.makeText(requireContext(), it.error.toString(), Toast.LENGTH_LONG).show()
                 }
             }
         }
@@ -112,5 +114,9 @@ class MainScreenFragment :
 
     companion object {
         private const val SCOPE_ID = "main_screen_fragment_id"
+    }
+
+    private fun setOnItemClick() {
+
     }
 }
