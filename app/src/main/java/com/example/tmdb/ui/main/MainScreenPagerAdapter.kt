@@ -17,6 +17,7 @@ class MainScreenPagerAdapter :
             MainScreenPagerAdapter.FilmListViewHolder
             >(FilmListComparator) {
 
+    var onItemClick: ((Int) -> Unit)? = null
     object FilmListComparator : DiffUtil.ItemCallback<FilmListDTO.Result>() {
         override fun areItemsTheSame(
             oldItem: FilmListDTO.Result,
@@ -50,6 +51,10 @@ class MainScreenPagerAdapter :
             holder.view.rateProgress.setIndicatorColor(holder.limeColor)
         } else {
             holder.view.rateProgress.setIndicatorColor(holder.greenColor)
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(film.id)
         }
     }
 

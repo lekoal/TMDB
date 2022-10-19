@@ -117,6 +117,8 @@ class MainScreenFragment :
     }
 
     private fun setOnItemClick() {
-
+        adapter.onItemClick = { id ->
+            Toast.makeText(requireContext(), "Film id: $id", Toast.LENGTH_SHORT).show()
+        }
     }
 }
