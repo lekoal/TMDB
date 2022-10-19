@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tmdb.databinding.FragmentMainScreenBinding
@@ -118,7 +119,8 @@ class MainScreenFragment :
 
     private fun setOnItemClick() {
         adapter.onItemClick = { id ->
-            Toast.makeText(requireContext(), "Film id: $id", Toast.LENGTH_SHORT).show()
+            val action = MainScreenFragmentDirections.actionGoToDetails(id)
+            Navigation.findNavController(binding.rvFilmList).navigate(action)
         }
     }
 }

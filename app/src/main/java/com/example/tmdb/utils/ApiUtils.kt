@@ -7,4 +7,5 @@ object ApiUtils {
     private const val detailsPart = "movie/"
     const val baseUrlFilmList = "$baseUrlMainPart$baseUrlVersion$discoverPart"
     const val baseUrlFilmDetails = "$baseUrlMainPart$baseUrlVersion$detailsPart"
+    const val imageBaseUrl = "https://image.tmdb.org/t/p/w300"
 }

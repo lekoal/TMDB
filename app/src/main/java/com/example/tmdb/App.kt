@@ -3,6 +3,7 @@ package com.example.tmdb
 import android.app.Application
 import android.content.Context
 import androidx.fragment.app.Fragment
+import com.example.tmdb.di.detailsKoinModule
 import com.example.tmdb.di.mainKoinModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -16,7 +17,7 @@ class App: Application() {
         startKoin {
             androidLogger()
             androidContext(this@App)
-            modules(mainKoinModule)
+            modules(mainKoinModule, detailsKoinModule)
         }
     }
 }

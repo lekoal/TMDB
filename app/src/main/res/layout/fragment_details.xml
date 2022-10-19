@@ -1,13 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.details.DetailsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/details_backdrop_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/black" />
 
-</FrameLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_title"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="20dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/details_poster_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Film title" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/details_poster_image"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:background="@color/transparent_black"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="-10dp"
+        app:layout_constraintBottom_toBottomOf="@id/details_backdrop_image"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:background="@color/black" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_release_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="@string/release_title"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/details_length"
+        app:layout_constraintStart_toEndOf="@id/details_poster_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/details_release_title"
+        app:layout_constraintTop_toTopOf="@id/details_release_title"
+        tools:text="date" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_length"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/details_genres"
+        app:layout_constraintStart_toEndOf="@id/details_poster_image"
+        tools:text="Length" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_genres"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/details_user_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/details_poster_image"
+        tools:text="genres" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/details_user_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:elevation="10dp"
+        android:indeterminate="false"
+        app:indicatorColor="@color/green_500"
+        app:indicatorSize="60dp"
+        app:layout_constraintBottom_toBottomOf="@id/details_backdrop_image"
+        app:layout_constraintStart_toEndOf="@id/details_poster_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/details_user_score_title"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/details_user_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/details_user_score"
+        app:layout_constraintTop_toTopOf="@id/details_user_score" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/details_user_score"
+        app:layout_constraintEnd_toEndOf="@id/details_user_score"
+        app:layout_constraintStart_toStartOf="@id/details_user_score"
+        app:layout_constraintTop_toTopOf="@id/details_user_score">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="50dp" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/details_user_score"
+        app:layout_constraintEnd_toEndOf="@id/details_user_score"
+        app:layout_constraintStart_toStartOf="@id/details_user_score"
+        app:layout_constraintTop_toTopOf="@id/details_user_score"
+        tools:text="50" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_overview_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/details_overview_title"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/details_backdrop_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/details_overview_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        tools:text="overview"
+        app:layout_constraintTop_toBottomOf="@id/details_overview_title"
+        android:layout_marginHorizontal="10dp" />
+
+    <FrameLayout
+        android:id="@+id/loadingProcessLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
