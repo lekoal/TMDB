@@ -3,6 +3,7 @@ package com.example.tmdb.ui.details
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.tmdb.R
 import com.example.tmdb.databinding.FragmentDetailsBinding
@@ -79,6 +80,13 @@ class DetailsFragment :
             }
             filmGenres.text = genres.joinToString(", ")
             scoreProgress.progress = (det.voteAverage.toInt() * 10)
+            if ((det.voteAverage.toInt() * 10) < 50) {
+                scoreProgress.
+                setIndicatorColor(ContextCompat.getColor(requireContext(), R.color.lime_600))
+            } else {
+                scoreProgress.
+                setIndicatorColor(ContextCompat.getColor(requireContext(), R.color.green_500))
+            }
             scoreText.text = (det.voteAverage.toInt() * 10).toString()
             filmOverview.text = det.overview
         }
