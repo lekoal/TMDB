@@ -2,4 +2,9 @@
     <string name="app_name">TMDB</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="top_movies_title">Top movies</string>
+    <string name="percent_symbol">%</string>
+    <string name="release_title">Released:</string>
+    <string name="details_user_score_title">User score</string>
+    <string name="details_overview_title">Overview</string>
 </resources>

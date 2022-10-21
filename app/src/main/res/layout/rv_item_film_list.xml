@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/rv_item_film_list_image"
+        android:layout_width="220dp"
+        android:layout_height="330dp"
+        android:foregroundGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/example_image" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rv_item_film_list_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingHorizontal="10dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/rv_item_film_list_date"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_film_list_image"
+        tools:text="Dragon Knight" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rv_item_film_list_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_film_list_name"
+        tools:text="Mar 21, 2022" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/rate_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="-15dp"
+        android:elevation="10dp"
+        android:indeterminate="false"
+        app:indicatorColor="@color/green_500"
+        app:layout_constraintBottom_toBottomOf="@id/rv_item_film_list_image"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@id/rate_progress"
+        app:layout_constraintEnd_toEndOf="@id/rate_progress"
+        app:layout_constraintStart_toStartOf="@id/rate_progress"
+        app:layout_constraintTop_toTopOf="@id/rate_progress">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            app:cardBackgroundColor="@color/black"
+            app:cardCornerRadius="50dp" />
+
+    </FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/rate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="11dp"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/rate_progress"
+        app:layout_constraintEnd_toEndOf="@id/rate_progress"
+        app:layout_constraintStart_toStartOf="@id/rate_progress"
+        app:layout_constraintTop_toTopOf="@id/rate_progress"
+        tools:text="50" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginEnd="-5dp"
+        android:text="@string/percent_symbol"
+        android:textColor="@color/white"
+        android:textSize="@dimen/percent_symbol_size"
+        app:layout_constraintBottom_toTopOf="@id/rate_text"
+        app:layout_constraintStart_toEndOf="@id/rate_text" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
